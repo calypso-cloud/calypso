@@ -1,1 +1,68 @@
 <h1>Welcome back, {@current_user.email} !</h1>
+
+<div class="flex flex-col items-start gap-1">
+  <time>{@date.year}</time>
+  <div>
+    <button class="p-3 text-white bg-black" phx-value-action="yesterday" phx-click="change_date">
+      &lt;
+    </button>
+     <time>{Calendar.strftime(@date, "%d %B")}</time>
+    <button class="p-3 text-white bg-black" phx-value-action="tomorrow" phx-click="change_date">
+      &gt;
+    </button>
+  </div>
+</div>
+
+<%= if @tasks != [] do %>
+  <.link
+    :for={task <- @tasks}
+    patch={~p"/tasks/#{task.id}"}
+    class="relative w-full flex flex-col gap-[10px] p-5 rounded-md border border-zinc-300"
+  >
+    <h2>{task.title}</h2>
+    
+    <p :if={task.description} class="text-sm break-all line-clamp-2 text-zinc-500">
+      {task.description}
+    </p>
+    
+    <div>
+      <time>
+        {Calendar.strftime(task.start_date, "%Hh%M")} - {Calendar.strftime(
+          task.end_date,
+          "%Hh%M"
+        )}
+      </time>
+    </div>
+  </.link>
+<% else %>
+  <p class="italic text-zinc-500">You don't have anything today :tada</p>
+<% end %>
+
+<.link patch={~p"/tasks/new"} class="fixed p-3 text-white bg-black bottom-5 right-5">
+  +
+</.link>
+
+<.modal
+  :if={@live_action == :new}
+  show
+  id="new-task-form-modal"
+  title="Create task"
+  on_cancel={JS.patch(~p"/")}
+>
+  <.live_component module={CalypsoWeb.HomeLive.NewTaskForm} id="new-task-form" patch={~p"/"} />
+</.modal>
+
+<.modal
+  :if={@live_action == :edit}
+  show
+  id="edit-task-form-modal"
+  title="Edit task"
+  on_cancel={JS.patch(~p"/")}
+>
+  <.live_component
+    module={CalypsoWeb.HomeLive.EditTaskForm}
+    id="edit-task-form"
+    task_id={@task_id}
+    patch={~p"/"}
+  />
+</.modal>

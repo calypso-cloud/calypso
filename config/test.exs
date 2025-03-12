@@ -7,7 +7,7 @@ import Config
 # Run `mix help test` for more information.
 config :calypso, Calypso.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "Pa$$w0rd",
   hostname: "localhost",
   database: "calypso_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,

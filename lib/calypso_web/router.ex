@@ -46,6 +46,10 @@ defmodule CalypsoWeb.Router do
     live_session :require_authenticated_user,
       on_mount: [{CalypsoWeb.UserAuth, :ensure_authenticated}] do
       live "/", HomeLive, :home
+
+      live "/tasks/new", HomeLive, :new
+      live "/tasks/:id", HomeLive, :edit
+
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end

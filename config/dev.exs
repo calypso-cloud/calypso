@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :calypso, Calypso.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "Pa$$w0rd",
   hostname: "localhost",
   database: "calypso_dev",
   stacktrace: true,

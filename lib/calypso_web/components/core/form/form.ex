@@ -7,7 +7,9 @@ defmodule CalypsoWeb.Components.Core.Form do
         FormField,
         Input,
         Label,
-        SimpleForm
+        Select,
+        SimpleForm,
+        TextArea
       }
     end
   end
