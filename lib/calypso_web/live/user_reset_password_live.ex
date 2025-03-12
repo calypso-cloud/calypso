@@ -5,9 +5,9 @@ defmodule CalypsoWeb.UserResetPasswordLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="max-w-sm mx-auto">
       <.header class="text-center">Reset Password</.header>
-
+      
       <.simple_form
         for={@form}
         id="reset_password_form"
@@ -17,20 +17,23 @@ defmodule CalypsoWeb.UserResetPasswordLive do
         <.error :if={@form.errors != []}>
           Oops, something went wrong! Please check the errors below.
         </.error>
-
-        <.input field={@form[:password]} type="password" label="New password" required />
-        <.input
-          field={@form[:password_confirmation]}
-          type="password"
-          label="Confirm new password"
-          required
-        />
+        
+        <.form_field :let={f} field={@form[:password]}>
+          <.label field={f}>New password</.label>
+           <.input field={f} type="password" required />
+        </.form_field>
+        
+        <.form_field :let={f} field={@form[:password_confirmation]}>
+          <.label field={f}>Confirm new password</.label>
+           <.input field={f} type="password" required />
+        </.form_field>
+        
         <:actions>
           <.button phx-disable-with="Resetting..." class="w-full">Reset Password</.button>
         </:actions>
       </.simple_form>
-
-      <p class="text-center text-sm mt-4">
+      
+      <p class="mt-4 text-sm text-center">
         <.link href={~p"/users/register"}>Register</.link>
         | <.link href={~p"/users/log_in"}>Log in</.link>
       </p>

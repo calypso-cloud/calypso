@@ -6,7 +6,7 @@ defmodule CalypsoWeb.UserRegistrationLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
+    <div class="max-w-sm mx-auto">
       <.header class="text-center">
         Register for an account
         <:subtitle>
@@ -17,7 +17,7 @@ defmodule CalypsoWeb.UserRegistrationLive do
           to your account now.
         </:subtitle>
       </.header>
-
+      
       <.simple_form
         for={@form}
         id="registration_form"
@@ -30,10 +30,17 @@ defmodule CalypsoWeb.UserRegistrationLive do
         <.error :if={@check_errors}>
           Oops, something went wrong! Please check the errors below.
         </.error>
-
-        <.input field={@form[:email]} type="email" label="Email" required />
-        <.input field={@form[:password]} type="password" label="Password" required />
-
+        
+        <.form_field :let={f} field={@form[:email]}>
+          <.label field={f}>Email</.label>
+           <.input field={f} type="email" required />
+        </.form_field>
+        
+        <.form_field :let={f} field={@form[:password]}>
+          <.label field={f}>Password</.label>
+           <.input field={f} type="password" required />
+        </.form_field>
+        
         <:actions>
           <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
         </:actions>

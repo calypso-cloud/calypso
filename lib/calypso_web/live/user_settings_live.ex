@@ -18,21 +18,30 @@ defmodule CalypsoWeb.UserSettingsLive do
           phx-submit="update_email"
           phx-change="validate_email"
         >
-          <.input field={@email_form[:email]} type="email" label="Email" required />
-          <.input
-            field={@email_form[:current_password]}
-            name="current_password"
-            id="current_password_for_email"
-            type="password"
-            label="Current password"
-            value={@email_form_current_password}
-            required
-          />
+          <.form_field :let={f} field={@email_form[:email]}>
+            <.label field={f}>Email</.label>
+             <.input field={f} type="email" required />
+          </.form_field>
+          
+          <.form_field :let={f} field={@email_form[:current_password]}>
+            <.label field={f}>Current password</.label>
+            
+            <.input
+              field={f}
+              id="current_password_for_email"
+              name="current_password"
+              type="password"
+              value={@email_form_current_password}
+              required
+            />
+          </.form_field>
+          
           <:actions>
             <.button phx-disable-with="Changing...">Change Email</.button>
           </:actions>
         </.simple_form>
       </div>
+      
       <div>
         <.simple_form
           for={@password_form}
@@ -49,21 +58,29 @@ defmodule CalypsoWeb.UserSettingsLive do
             id="hidden_user_email"
             value={@current_email}
           />
-          <.input field={@password_form[:password]} type="password" label="New password" required />
-          <.input
-            field={@password_form[:password_confirmation]}
-            type="password"
-            label="Confirm new password"
-          />
-          <.input
-            field={@password_form[:current_password]}
-            name="current_password"
-            type="password"
-            label="Current password"
-            id="current_password_for_password"
-            value={@current_password}
-            required
-          />
+          <.form_field :let={f} field={@form[:password]}>
+            <.label field={f}>New password</.label>
+             <.input field={f} type="password" required />
+          </.form_field>
+          
+          <.form_field :let={f} field={@form[:password_confirmation]}>
+            <.label field={f}>Confirm new password</.label>
+             <.input field={f} type="password" />
+          </.form_field>
+          
+          <.form_field :let={f} field={@form[:current_password]}>
+            <.label field={f}>Current password</.label>
+            
+            <.input
+              field={f}
+              id="current_password_for_password"
+              name="current_password"
+              type="password"
+              value={@current_password}
+              required
+            />
+          </.form_field>
+          
           <:actions>
             <.button phx-disable-with="Changing...">Change Password</.button>
           </:actions>

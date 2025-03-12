@@ -82,15 +82,12 @@ defmodule CalypsoWeb do
 
   defp html_helpers do
     quote do
-      # Translation
       use Gettext, backend: CalypsoWeb.Gettext
+      use CalypsoWeb.Components
 
       # HTML escaping functionality
       import Phoenix.HTML
-      # Core UI components
-      import CalypsoWeb.CoreComponents
 
-      # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 
       # Routes generation with the ~p sigil

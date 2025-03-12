@@ -17,7 +17,8 @@ defmodule Calypso.Application do
       # Start a worker by calling: Calypso.Worker.start_link(arg)
       # {Calypso.Worker, arg},
       # Start to serve requests, typically the last entry
-      CalypsoWeb.Endpoint
+      CalypsoWeb.Endpoint,
+      TwMerge.Cache
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
