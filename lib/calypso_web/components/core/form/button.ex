@@ -3,7 +3,7 @@ defmodule CalypsoWeb.Components.Core.Form.Button do
 
   @variants %{
     "default" => "bg-black text-white shadow hover:bg-black/90",
-    "destructive" => "bg-red text-red-foreground shadow-sm hover:bg-red/90",
+    "destructive" => "bg-red-500 text-white shadow-sm hover:bg-red-500/90",
     "outline" =>
       "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
     "secondary" => "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
@@ -42,7 +42,7 @@ defmodule CalypsoWeb.Components.Core.Form.Button do
       type={@type}
       class={
         TwMerge.merge([
-          "phx-submit-loading:opacity-75 rounded-lg py-2 px-3 text-sm font-semibold leading-6",
+          "phx-submit-loading:opacity-75 rounded-lg py-2 px-3 text-sm font-semibold leading-6 duration-100",
           @variant_class,
           @class
         ])

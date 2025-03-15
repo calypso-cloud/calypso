@@ -49,7 +49,10 @@ defmodule CalypsoWeb.Components.Core.Form.FormField do
 
   def form_field(assigns) do
     ~H"""
-    <div class={TwMerge.merge(["relative flex flex-col gap-[10px] items-start", @class])} {@rest}>
+    <div
+      class={TwMerge.merge(["relative flex flex-col gap-[10px] items-start w-full", @class])}
+      {@rest}
+    >
       {render_slot(@inner_block, @field_duplicate)}
       <.error :for={msg <- @errors}>{msg}</.error>
     </div>

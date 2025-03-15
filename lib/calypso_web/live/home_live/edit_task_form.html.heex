@@ -1,0 +1,46 @@
+<div class="relative w-full">
+  <.simple_form for={@form} phx-target={@myself} phx-change="validate" phx-submit="update">
+    <.form_field :let={f} field={@form[:title]}>
+      <.label field={f}>Title *</.label>
+       <.input field={f} required />
+    </.form_field>
+    
+    <.form_field :let={f} field={@form[:start_date]}>
+      <.label field={f}>Start date *</.label>
+       <.input field={f} type="datetime-local" />
+    </.form_field>
+    
+    <.form_field :let={f} field={@form[:end_date]}>
+      <.label field={f}>End date *</.label>
+       <.input field={f} type="datetime-local" />
+    </.form_field>
+    
+    <.form_field
+      :let={f}
+      field={@form[:completed]}
+      class="flex-row-reverse items-center justify-end"
+    >
+      <.label field={f}>Completed</.label>
+       <.input field={f} type="checkbox" />
+    </.form_field>
+    
+    <.form_field :let={f} field={@form[:description]}>
+      <.label field={f}>Description</.label>
+       <.textarea field={f} />
+    </.form_field>
+    
+    <.form_field :let={f} field={@form[:priority]}>
+      <.label field={f}>Priority</.label>
+       <.select field={f} prompt="Select a priority" options={@priorities} />
+    </.form_field>
+    
+    <:actions>
+      <.link patch={~p"/"}>Cancel</.link>
+      <.button type="button" variant="destructive" phx-target={@myself} phx-click="delete">
+        Delete
+      </.button>
+      
+      <.button>Edit</.button>
+    </:actions>
+  </.simple_form>
+</div>

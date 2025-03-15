@@ -20,7 +20,9 @@ defmodule CalypsoWeb.Components.Core.Feedback.Modal do
       </.modal>
 
   """
+
   attr :id, :string, required: true
+  attr :title, :string, default: nil, doc: "A title to show in the modal's header"
   attr :show, :boolean, default: false
   attr :on_cancel, JS, default: %JS{}
   slot :inner_block, required: true
@@ -50,13 +52,15 @@ defmodule CalypsoWeb.Components.Core.Feedback.Modal do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="relative hidden transition bg-white shadow-lg shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl p-14 ring-1"
+              class="relative hidden p-5 transition bg-white shadow-lg shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl ring-1"
             >
-              <div class="absolute top-6 right-5">
+              <div class={"relative flex items-center w-full #{if @title, do: "justify-between", else: "justify-end"}"}>
+                <h3 :if={@title} class="text-lg font-medium">{@title}</h3>
+                
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="flex-none p-3 -m-3 opacity-20 hover:opacity-40"
+                  class="flex-none p-3 duration-100 text-zinc-400 hover:text-zinc-600"
                   aria-label="close"
                 >
                   <Heroicons.icon name="x-mark" class="w-5 h-5" />
@@ -72,28 +76,6 @@ defmodule CalypsoWeb.Components.Core.Feedback.Modal do
       </div>
     </div>
     """
-  end
-
-  def show(js, selector) do
-    JS.show(js,
-      to: selector,
-      time: 300,
-      transition:
-        {"transition-all transform ease-out duration-300",
-         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
-         "opacity-100 translate-y-0 sm:scale-100"}
-    )
-  end
-
-  def hide(js, selector) do
-    JS.hide(js,
-      to: selector,
-      time: 200,
-      transition:
-        {"transition-all transform ease-in duration-200",
-         "opacity-100 translate-y-0 sm:scale-100",
-         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
-    )
   end
 
   def show_modal(js \\ %JS{}, id) when is_binary(id) do
@@ -119,5 +101,27 @@ defmodule CalypsoWeb.Components.Core.Feedback.Modal do
     |> JS.hide(to: "##{id}", transition: {"block", "block", "hidden"})
     |> JS.remove_class("overflow-hidden", to: "body")
     |> JS.pop_focus()
+  end
+
+  defp show(js, selector) do
+    JS.show(js,
+      to: selector,
+      time: 300,
+      transition:
+        {"transition-all transform ease-out duration-300",
+         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+         "opacity-100 translate-y-0 sm:scale-100"}
+    )
+  end
+
+  defp hide(js, selector) do
+    JS.hide(js,
+      to: selector,
+      time: 200,
+      transition:
+        {"transition-all transform ease-in duration-200",
+         "opacity-100 translate-y-0 sm:scale-100",
+         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
+    )
   end
 end

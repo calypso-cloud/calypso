@@ -27,9 +27,12 @@ defmodule CalypsoWeb.Components.Core.Form.SimpleForm do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
+      <div class="relative flex flex-col items-start w-full gap-5">
         {render_slot(@inner_block, f)}
-        <div :for={action <- @actions} class="flex items-center justify-between gap-6 mt-2">
+        <div
+          :for={action <- @actions}
+          class="relative flex items-center justify-between w-full gap-6 mt-2"
+        >
           {render_slot(action, f)}
         </div>
       </div>
